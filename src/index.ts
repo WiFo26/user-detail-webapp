@@ -1,6 +1,8 @@
 import { User } from "./models/User"
 
-const user = new User({name: 'Luis', age:20})
+const user = new User({name:'Carlos', age: 48})
 
-user.on('click',() => console.log('Clicking on'))
-user.trigger('click')
+
+setTimeout(()=>{
+    console.log(user)
+},4000)

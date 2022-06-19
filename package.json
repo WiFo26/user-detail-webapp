@@ -5,10 +5,18 @@
   "repository": "https://github.com/WiFo26/user-detail-webapp.git",
   "author": "Luis Ramirez <lou81804@gmail.com>",
   "license": "MIT",
-  "scripts":{
-    "start": "parcel index.html"
+  "scripts": {
+    "start:db": "json-server -w userDB.json",
+    "start:parcel": "parcel index.html",
+    "start": "concurrently --kill-others yarn:start:*"
   },
   "devDependencies": {
-    "parcel": "^2.6.1"
+    "buffer": "^6.0.3",
+    "parcel": "^2.6.1",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "concurrently": "^7.2.2"
   }
 }
