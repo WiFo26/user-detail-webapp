@@ -1,6 +1,9 @@
 import { User } from "./models/User"
 
-const user = new User({name:'Carlos', age: 48})
+const user = new User({id: 1})
 
-user.events.on('change', () => console.log('user data changed'))
-user.events.trigger('change')
+const getUser =async () => {
+    return await user.sync.fetch(user.get('id') as number)
+}
+
+getUser().then(res => console.log(res.data))
