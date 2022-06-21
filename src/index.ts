@@ -1,9 +1,9 @@
 import { User } from "./models/User"
 
-const user = new User({id: 1})
+const collection = User.buildUserCollection()
 
-const getUser =async () => {
-    return await user.sync.fetch(user.get('id') as number)
-}
+collection.on('change', () => {
+    console.log(collection)
+})
 
-getUser().then(res => console.log(res.data))
+collection.fetch()

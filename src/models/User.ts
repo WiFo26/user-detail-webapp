@@ -1,27 +1,28 @@
-import { Eventing } from "./Eventing"
-import { Sync } from "./Sync";
+import { AxiosResponse } from 'axios'
+import { Attributes } from './Attributes'
+import { Collection } from './Collection'
+import { Callback, Eventing } from './Eventing'
+import { Model } from './Model'
+import { Sync } from './Sync'
 
 interface UserProps {
-    id?: number
-    name?: string
-    age?: number
+  id?: number
+  name?: string
+  age?: number
 }
 
-const url = "http://localhost:3000/users"
-export class User {
-
-    public events: Eventing = new Eventing();
-
-    public sync: Sync<UserProps> = new Sync<UserProps>(url);
-
-    constructor(private data: UserProps) {
+const url = 'http://localhost:3000/users'
+export class User extends Model<UserProps> {
+    static buildUser(attrs: UserProps): User {
+        return new User(
+            new Attributes<UserProps>(attrs),
+            new Eventing(),
+            new Sync<UserProps>(url)
+        )
     }
 
-    get(propName: string): string | number {
-        return this.data[propName]
+    static buildUserCollection(): Collection<User,UserProps> {
+        return new Collection<User,UserProps>(url,(json: UserProps) => User.buildUser(json))
     }
 
-    set(update: UserProps): void {
-        Object.assign(this.data,update)
-    }
 }

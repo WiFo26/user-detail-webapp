@@ -1,6 +1,8 @@
-type Callback = () => void
+import { Events } from "./Model"
 
-export class Eventing {
+export type Callback = () => void
+
+export class Eventing implements Events {
 
     private events: { [key: string]: Callback[] }
 
@@ -8,13 +10,13 @@ export class Eventing {
         this.events = {}
     }
 
-    on(eventName: string, callback: Callback): void{
+    on = (eventName: string, callback: Callback): void => {
         const handler = this.events[eventName] || []
         handler.push(callback)
         this.events[eventName] = handler
     }
 
-    trigger(eventName: string): void {
+    trigger = (eventName: string): void => {
         const handler = this.events[eventName]
         if (!handler || handler.length === 0 ) return
 
