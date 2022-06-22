@@ -1,9 +1,12 @@
-import { User } from "./models/User"
+import { User } from './models/User'
+import { UserEdit } from './views/UserEdit'
 
-const collection = User.buildUserCollection()
+const root = document.getElementById('user-form')
+if (root) {
+  const userEdit = new UserEdit(root, User.buildUser({ name: 'Niky', age: 21 }))
+  userEdit.render()
+} else {
+    throw new Error('Root element not found')
+}
 
-collection.on('change', () => {
-    console.log(collection)
-})
 
-collection.fetch()
